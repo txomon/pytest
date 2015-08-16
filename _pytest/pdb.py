@@ -1,6 +1,10 @@
 """ interactive debugging with PDB, the Python Debugger. """
 from __future__ import absolute_import
-import pdb
+import ipdb
+from IPython.core.debugger import Pdb
+class pdb(object):
+    set_trace = ipdb.set_trace
+    Pdb = Pdb
 import sys
 
 import pytest
