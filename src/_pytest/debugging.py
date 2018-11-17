@@ -77,7 +77,7 @@ class pytestPDB(object):
     _saved = []
 
     @classmethod
-    def set_trace(cls, set_break=True):
+    def set_trace(cls, set_break=True, **kwargs):
         """ invoke PDB set_trace debugging, dropping any IO capturing. """
         import _pytest.config
 
@@ -129,10 +129,10 @@ class pytestPDB(object):
                             self._pytest_capman.suspend_global_capture(in_=True)
                     return ret
 
-            _pdb = _PdbWrapper()
+            _pdb = _PdbWrapper(**kwargs)
             cls._pluginmanager.hook.pytest_enter_pdb(config=cls._config, pdb=_pdb)
         else:
-            _pdb = cls._pdb_cls()
+            _pdb = cls._pdb_cls(**kwargs)
 
         if set_break:
             _pdb.set_trace(frame)
